@@ -2,11 +2,15 @@
 
 push() {
   branchName=`git symbolic-ref --short -q HEAD 2>&1`
-  echo "branch = $branchName."
+  echo "branch=$branchName."
   if test -z "$branchName" ; then
   echo 'yes'
   else
   echo 'no'
   fi
   # git push origin branchName
+}
+
+pull() {
+  git pull origin $1
 }
