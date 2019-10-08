@@ -7,6 +7,7 @@ path=~/scripts/git-shortcut
 # rm -rf ~/scripts
 
 # create dir and copy files
+rm -rf $path
 mkdir -p $path
 cp -r `ls | grep -v install.sh | xargs` $path
 mv $path/main.sh $path/g
@@ -19,9 +20,9 @@ cat << eot >> ~/.bash_profile
 export PATH=\$PATH:~/scripts/git-shortcut
 
 eot
+source ~/.bash_profile
 fi
 # apply configuration
-source ~/.bash_profile
 
 # debug
-ls -l $path
+# ls -l $path

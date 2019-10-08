@@ -1,16 +1,39 @@
 #! /bin/bash
 
 push() {
-  branchName=`git symbolic-ref --short -q HEAD 2>&1`
-  echo "branch=$branchName."
-  if test -z "$branchName" ; then
-  echo 'yes'
+  branchName=$(git symbolic-ref --short -q HEAD 2>&1)
+  echo "branch = $branchName"
+  # 判断空字符串
+  if test -z "$branchName"; then
+    echo 'branchName is empty.'
   else
-  echo 'no'
+    git push origin $branchName
   fi
-  # git push origin branchName
 }
 
 pull() {
   git pull origin $1
+}
+
+commit() {
+  if test -z "$1"; then
+    comment=$(echo $1 | grep '^-')
+    echo $comment
+    if test -z "$comment"; then
+      git commit -m $comment
+    else
+      echo "git commit $*"
+      git commit $*
+    fi
+  else
+    git commit
+  fi
+}
+
+submit() {
+  if test -z "$1"; then 
+    git add . && git commit -m "update." && push
+  else
+    git add . && git commit -m "$1" && push
+  fi
 }
