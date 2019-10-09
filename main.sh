@@ -1,5 +1,5 @@
 #! /bin/bash
-. ./src/cmd.sh
+. ~/scripts/git-shortcut/src/cmd.sh
 
 input() {
   case $1 in
