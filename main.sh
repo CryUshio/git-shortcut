@@ -2,6 +2,7 @@
 . ~/scripts/git-shortcut/src/cmd.sh
 
 input() {
+  echo $2 $3
   case $1 in
   ps)
     push
