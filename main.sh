@@ -31,7 +31,7 @@ case $1 in
     git fetch
     ;;
   cm)
-    git commit "$2"
+    commit "$2"
     ;;
   sm)
     submit "$2"

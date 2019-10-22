@@ -17,24 +17,23 @@ pull() {
 
 commit() {
   if test -z "$1"; then
-    comment=$(echo $1 | grep '^-')
-    echo $comment
+    git commit
+  else
+    comment=$(echo "$1" | grep '^-')
     if test -z "$comment"; then
-      git commit -m $comment
+      echo "-> git commit -m \"$1\""
+      git commit -m "$1"
     else
-      echo "git commit $*"
+      echo "-> git commit $*"
       git commit $*
     fi
-  else
-    git commit
   fi
 }
 
 submit() {
-  echo "-> comment: \"$1\"" \n
-  if test -z "$1"; then 
-    git add . && git commit -m "update." && push
+  if test -z "$1"; then
+    git add . && commit "feat: update." && push
   else
-    git add . && git commit -m "$1" && push
+    git add . && commit "$1" && push
   fi
 }
