@@ -32,7 +32,7 @@ commit() {
 }
 
 submit() {
-  echo "-> comment: $1"
+  echo "-> comment: \"$1\""
   echo ""
   if test -z "$1"; then 
     git add . && git commit -m "update." && push
