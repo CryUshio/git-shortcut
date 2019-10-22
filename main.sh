@@ -1,34 +1,6 @@
 #! /bin/bash
 . ~/scripts/git-shortcut/src/cmd.sh
 
-input() {
-  echo $2 $3
-  case $1 in
-  ps)
-    push
-    ;;
-  pl)
-    pull $2
-    ;;
-  fh)
-    git fetch
-    ;;
-  cm)
-    git commit $2
-    ;;
-  sm)
-    submit $2
-    ;;
-
-  -)
-    git checkout -
-    ;;
-  h | *)
-    help
-    ;;
-  esac
-}
-
 help() {
   cat <<EOF
 Usage: g <command>
@@ -45,4 +17,31 @@ Usage: g <command>
 EOF
 }
 
-input $*
+case "$1" in
+  ad)
+    git add .
+    ;;
+  ps)
+    push
+    ;;
+  pl)
+    pull "$2"
+    ;;
+  fh)
+    git fetch
+    ;;
+  cm)
+    git commit "$2"
+    ;;
+  sm)
+    submit "$2"
+    ;;
+
+  -)
+    git checkout -
+    ;;
+  h | *)
+    help
+    ;;
+  esac
+}
