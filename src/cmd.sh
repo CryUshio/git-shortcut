@@ -2,8 +2,7 @@
 
 push() {
   branchName=$(git symbolic-ref --short -q HEAD 2>&1)
-  echo "branch: $branchName"
-  echo ""
+  echo "-> branch: $branchName" \n
   # 判断空字符串
   if test -z "$branchName"; then
     echo 'branchName is empty.'
@@ -32,8 +31,7 @@ commit() {
 }
 
 submit() {
-  echo "-> comment: \"$1\""
-  echo ""
+  echo "-> comment: \"$1\"" \n
   if test -z "$1"; then 
     git add . && git commit -m "update." && push
   else
