@@ -17,10 +17,6 @@ Usage: g <command>
 EOF
 }
 
-echo "$1"
-echo "$2"
-echo "$3"
-
 case $1 in
   ad)
     git add .
