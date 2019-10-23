@@ -17,7 +17,6 @@ pull() {
 }
 
 commit() {
-  echo "cm -> $1"
   if test -z "$1"; then
     git commit
   else
@@ -43,4 +42,8 @@ submit() {
     shift
     git add . && (commit "$_1" $*) && push
   fi
+}
+
+merge() {
+  echo merge
 }

@@ -1,5 +1,4 @@
 #! /bin/bash
-echo "GIT_SHORTCUT_HOME=$GIT_SHORTCUT_HOME"
 . "$GIT_SHORTCUT_HOME/src/cmd.sh"
 
 help() {
@@ -28,7 +27,7 @@ case $case_key in
 ad)
   git add .
   ;;
-b)
+br)
   git branch
   ;;
 ck)
