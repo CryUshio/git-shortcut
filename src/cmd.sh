@@ -2,7 +2,7 @@
 
 push() {
   branchName=$(git symbolic-ref --short -q HEAD 2>&1)
-  echo -e "-> branch: $branchName\n"
+  echo -e "-> branch: origin $branchName\n"
   # 判断空字符串
   if test -z "$branchName"; then
     echo 'branchName is empty.'

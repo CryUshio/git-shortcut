@@ -3,15 +3,19 @@
 
 help() {
   cat <<EOF
-Usage: g <command>
+Usage: g <command> <...?>
 
 <Commands>
-  ps:  推送代码到当前远程分支
-  pl:  拉取代码从指定远程分支
-  fh:  获取远程仓库变动
-  cm:  <comment>?, 等同于 git commit
-  sm:  <comment>?, 一键推送所有修改, git add . && git commit && git push
-  -:  回到上一个分支
+  ad:  git add .
+  b :  git branch
+  ck:  git checkout <branchName>
+  + :  git checkout -b <branchName>
+  - :  git checkout -, 回到上一个分支
+  ps:  git push origin [current branch], 推送代码到当前远程分支
+  pl:  git pull origin <branchName>?, 从远程分支拉取代码
+  fh:  git fetch, 获取远程仓库变动
+  cm:  <comment?|cmd?>, git commit <-m comment?|cmd?>
+  sm:  <comment>?, g ad && g cm && g ps, 一键推送所有修改
   merge:  拉取并 merge master
 
 EOF
@@ -20,6 +24,15 @@ EOF
 case $1 in
   ad)
     git add .
+    ;;
+  b)
+    git branch
+    ;;
+  ck)
+    git checkout
+    ;;
+  +)
+    git checkout -b "$2"
     ;;
   ps)
     push
