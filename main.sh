@@ -34,6 +34,9 @@ case $1 in
   +)
     git checkout -b "$2"
     ;;
+  -)
+    git checkout -
+    ;;
   ps)
     push
     ;;
@@ -50,9 +53,6 @@ case $1 in
     submit "$2"
     ;;
 
-  -)
-    git checkout -
-    ;;
   h | *)
     help
     ;;
