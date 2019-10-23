@@ -41,7 +41,6 @@ submit() {
   else
     _1="$1"
     shift
-    echo "sm -> $_1"
     git add . && (commit "$_1" $*) && push
   fi
 }

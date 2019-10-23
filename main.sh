@@ -22,40 +22,45 @@ Usage: g <command> <...?>
 EOF
 }
 
-case $1 in
-  ad)
-    git add .
-    ;;
-  b)
-    git branch
-    ;;
-  ck)
-    git checkout
-    ;;
-  +)
-    git checkout -b "$2"
-    ;;
-  -)
-    git checkout -
-    ;;
-  ps)
-    push
-    ;;
-  pl)
-    pull "$2"
-    ;;
-  fh)
-    git fetch
-    ;;
-  cm)
-    commit "$2"
-    ;;
-  sm)
-    submit "$2"
-    ;;
+case_key=$1
+shift
+case $case_key in
+ad)
+  git add .
+  ;;
+b)
+  git branch
+  ;;
+ck)
+  git checkout
+  ;;
++)
+  git checkout -b "$1"
+  ;;
+-)
+  git checkout -
+  ;;
+ps)
+  push
+  ;;
+pl)
+  pull "$1"
+  ;;
+fh)
+  git fetch
+  ;;
+cm)
+  cm_1="$1"
+  shift
+  commit "$cm_1" $*
+  ;;
+sm)
+  sm_1="$1"
+  shift
+  submit "$sm_1" $*
+  ;;
 
-  h | *)
-    help
-    ;;
-  esac
-
+h | *)
+  help
+  ;;
+esac
