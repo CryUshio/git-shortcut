@@ -17,6 +17,7 @@ pull() {
 }
 
 commit() {
+  echo "cm -> $1"
   if test -z "$1"; then
     git commit
   else
@@ -38,6 +39,9 @@ submit() {
   if test -z "$1"; then
     git add . && (commit "feat: update.") && push
   else
-    git add . && git commit -m "$1" && push
+    _1="$1"
+    shift
+    echo "sm -> $_1"
+    git add . && (commit "$_1" $*) && push
   fi
 }
