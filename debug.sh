@@ -1,5 +1,11 @@
 #! /bin/bash
 
-cmd="pl -a -n"
-cmd_1=${cmd#pl }
-echo $cmd_1
+. "$(dirname $(greadlink -f $0))/src/utils.sh"
+
+branchName=$(getBranchName)
+
+if test -z "$branchName"; then
+  echo 'fatal'
+else
+  echo $branchName
+fi

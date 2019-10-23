@@ -1,12 +1,13 @@
 #! /bin/bash
+. "$GIT_SHORTCUT_HOME/src/utils.sh"
 
 push() {
-  branchName=$(git symbolic-ref --short -q HEAD 2>&1)
-  echo -e "-> branch: origin $branchName\n"
+  branchName=$(getBranchName)
   # 判断空字符串
   if test -z "$branchName"; then
     echo 'branchName is empty.'
   else
+    echo -e "-> branch: origin $branchName\n"
     git push origin $branchName
   fi
 }
@@ -19,21 +20,24 @@ commit() {
   if test -z "$1"; then
     git commit
   else
-    comment=$(echo "$1" | grep '^-')
-    if test -z "$comment"; then
-      echo "-> git commit -m \"$1\""
-      git commit -m "$1"
-    else
+    # only cmd start with '-'
+    isCmd=$(echo "$1" | grep '^-')
+    if test -n "$isCmd"; then
       echo "-> git commit $*"
       git commit $*
+    else
+      comment="$1"
+      shift
+      echo "-> git commit -m \"$comment\" $*"
+      git commit -m "$comment" $*
     fi
   fi
 }
 
 submit() {
   if test -z "$1"; then
-    git add . && commit "feat: update." && push
+    git add . && (commit "feat: update.") && push
   else
-    git add . && commit "$1" && push
+    git add . && git commit -m "$1" && push
   fi
 }

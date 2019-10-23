@@ -1,5 +1,6 @@
 #! /bin/bash
-. ~/scripts/git-shortcut/src/cmd.sh
+echo "GIT_SHORTCUT_HOME=$GIT_SHORTCUT_HOME"
+. "$GIT_SHORTCUT_HOME/src/cmd.sh"
 
 help() {
   cat <<EOF
