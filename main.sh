@@ -7,7 +7,7 @@ Usage: g <command> <...?>
 
 <Commands>
   ad:  git add .
-  b :  git branch
+  br:  git branch
   ck:  git checkout <branchName>
   + :  git checkout -b <branchName>
   - :  git checkout -, 回到上一个分支

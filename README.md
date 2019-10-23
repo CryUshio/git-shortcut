@@ -23,5 +23,5 @@ Usage: g <command> <...?>
   fh:  git fetch, 获取远程仓库变动
   cm:  <comment?|cmd?>, git commit <-m comment?|cmd?>
   sm:  <comment>?, g ad && g cm && g ps, 一键推送所有修改
-  merge:  拉取并 merge master
+  mg:  git merge <branchName?>, 拉取并 merge 目标分支, 默认 merge master
 ```
