@@ -45,5 +45,9 @@ submit() {
 }
 
 merge() {
-  echo merge
+  if test -z "$1"; then
+    git checkout master && git pull && git checkout - && git merge master
+  else
+    git merge "$1"
+  fi
 }
