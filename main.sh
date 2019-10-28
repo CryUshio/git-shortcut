@@ -28,7 +28,7 @@ ad)
   git add .
   ;;
 br)
-  git branch
+  git branch $*
   ;;
 ck)
   git checkout $1
