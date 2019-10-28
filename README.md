@@ -1,6 +1,3 @@
-## Description
-自用型 `git` 快捷命令（仅支持 mac os、linux）
-
 ## Install
 ```
 git clone https://github.com/chym123/git-shortcut.git
