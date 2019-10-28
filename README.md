@@ -1,5 +1,5 @@
 ## Description
-自用型git快捷命令（仅支持 mac os、linux）
+自用型`git`快捷命令（仅支持 mac os、linux）
 
 ## Install
 ```
