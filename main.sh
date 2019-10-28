@@ -31,7 +31,10 @@ br)
   git branch
   ;;
 ck)
-  git checkout
+  git checkout $1
+  ;;
+ma)
+  git checkout master
   ;;
 +)
   git checkout -b "$1"
@@ -62,7 +65,10 @@ mg)
   merge $1
   ;;
 
-h | *)
+h)
   help
+  ;;
+*)
+  git $case_key $*
   ;;
 esac

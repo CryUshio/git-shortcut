@@ -45,5 +45,5 @@ submit() {
 }
 
 merge() {
-  echo merge
+  git checkout master && git pull && git checkout - && git merge
 }
