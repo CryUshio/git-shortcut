@@ -19,6 +19,7 @@ Usage: g <command> <...?>
   sm:  <comment>?, g ad && g cm && g ps, 一键推送所有修改
   mg:  git merge <branchName?>, 拉取并 merge 目标分支, 默认 merge master
 
+  g <h|help>: For help
   g <cmd>: git <cmd>
 EOF
 }
@@ -67,7 +68,7 @@ mg)
   merge $1
   ;;
 
-h)
+h|help)
   help
   ;;
 *)

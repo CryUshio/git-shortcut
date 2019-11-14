@@ -7,7 +7,7 @@ exsist() {
 if ! exsist greadlink; then
   if test -n $(echo readlink -f | grep 'illegal'); then
     cat <<eof
-Your system not support \`readlink -f\`, please install coreutils:
+Your system does not support \`readlink -f\`, please install coreutils:
     brew install coreutils
 
 eof
@@ -33,6 +33,7 @@ mkdir -p $path
 cp -r $(ls | grep -v install.sh | xargs) $path
 mv $path/main.sh $path/g
 chmod +x $path/g
+chmod +x $path/src/g-completion.bash
 
 # set path
 if ! exsist g; then
@@ -40,6 +41,9 @@ if ! exsist g; then
 
 export GIT_SHORTCUT_HOME="$path"
 export PATH=\$PATH:\$GIT_SHORTCUT_HOME
+if [ -f "\$GIT_SHORTCUT_HOME/src/g-completion.bash" ]; then
+  . \$GIT_SHORTCUT_HOME/src/g-completion.bash
+fi
 
 eot
 

@@ -1,8 +1,14 @@
 #! /bin/bash
 
-if [ 'a' == 'b' ]
-then
-echo '1'
-else
-echo 2
-fi
+getBranchs() {
+  local result=$(git branch 2>&1 | sed "s/*//g")
+
+  if [[ "$result" == *'fatal'* ]]; then
+    echo ''
+  else
+    echo "$result"
+  fi
+}
+
+echo $(getBranchs)
+printf '%*s' "-$COLUMNS" "master"
