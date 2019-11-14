@@ -39,7 +39,7 @@ ma)
   git checkout master
   ;;
 +)
-  git checkout -b "$1"
+  newBranch $*
   ;;
 -)
   git checkout -

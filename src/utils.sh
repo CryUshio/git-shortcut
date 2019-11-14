@@ -14,3 +14,11 @@ getBranchName() {
     echo $result
   fi
 }
+
+replace() {
+  originStr=$1
+  matchVal=$2
+  replaceVal=$3
+
+  echo $originStr | sed "s/$matchVal/$replaceVal/g"
+}

@@ -51,3 +51,22 @@ merge() {
     git merge "$1"
   fi
 }
+
+newBranch() {
+  recBranch=$(getBranchName)
+  dateTime=$(date +%Y%m%d)
+  branchName=$(replace "$1" "%t" "$dateTime")
+  cmd="$2"
+
+  if [ "$recBranch" != "master" ]
+  then
+    if [ "$cmd" == "-f" ]
+    then
+      git checkout -b "$branchName"
+    else
+      echo 'Your branch now is not in `master`, if you want to create a branch, please add `-f` at the end.'
+    fi
+  else
+    git checkout -b "$branchName"
+  fi
+}
