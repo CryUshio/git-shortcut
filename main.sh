@@ -10,7 +10,7 @@ Usage: g <command> <...?>
   br:  git branch <...>
   ck:  git checkout <branchName>
   ma:  git checkout master
-  + :  git checkout -b <branchName>
+  + :  git checkout -b <branchName>, use \`%t\` in branchName will replace with today's date like \`20191122\`
   - :  git checkout -, 回到上一个分支
   ps:  git push origin [current branch], 推送代码到当前远程分支
   pl:  git pull origin <branchName>?, 从远程分支拉取代码
