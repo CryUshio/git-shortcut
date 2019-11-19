@@ -17,6 +17,11 @@ g_complete() {
   local cmd=${COMP_WORDS[COMP_CWORD - 1]}
   branchs=$(getBranchs)
 
+  case $cur in
+  cm | sm | + | br | mg | ck)
+    words=("$cur")
+    ;;
+  esac
   case $cmd in
   # ad|ma|-|ps|pl|fh|cm|sm)
   # ;;
