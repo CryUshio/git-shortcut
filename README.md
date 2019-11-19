@@ -15,6 +15,7 @@ Usage: g <command> <...?>
 <Commands>
   ad:  git add .
   br:  git branch <...>
+  cl:  git clone <...>
   ck:  git checkout <branchName>
   ma:  git checkout master
   + :  git checkout -b <branchName>, use `%t` in branchName will replace with today's date like `20191122`
