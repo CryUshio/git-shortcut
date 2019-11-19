@@ -18,9 +18,16 @@ g_complete() {
   branchs=$(getBranchs)
 
   case $cmd in
-  # ad|ck|ma|+|-|ps|pl|fh|cm|sm|mg|h)
+  # ad|ma|-|ps|pl|fh|cm|sm)
   # ;;
-  br)
+  +)
+    if [[ "$cur" == *'%t'* ]]; then
+      words=()
+    else
+      words=("$cur%t")
+    fi
+    ;;
+  br | mg | ck)
     words=($(compgen -W "$branchs" -- $cur))
     ;;
   g)
