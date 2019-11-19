@@ -4,7 +4,7 @@
 push() {
   branchName=$(getBranchName)
   # 判断空字符串
-  if test -z "$branchName"; then
+  if [ -z "$branchName" ]; then
     echo 'branchName is empty.'
   else
     echo -e "-> branch: origin $branchName\n"
@@ -17,12 +17,11 @@ pull() {
 }
 
 commit() {
-  if test -z "$1"; then
+  if [ -z "$1" ]; then
     git commit
   else
     # only cmd start with '-'
-    isCmd=$(echo "$1" | grep '^-')
-    if test -n "$isCmd"; then
+    if [[ "$1" == '-'* ]]; then
       echo "-> git commit $*"
       git commit $*
     else
@@ -35,7 +34,7 @@ commit() {
 }
 
 submit() {
-  if test -z "$1"; then
+  if [ -z "$1" ]; then
     git add . && (commit "feat: update.") && push
   else
     _1="$1"
@@ -45,7 +44,7 @@ submit() {
 }
 
 merge() {
-  if test -z "$1"; then
+  if [ -z "$1" ]; then
     git checkout master && git pull && git checkout - && git merge master
   else
     git merge "$1"

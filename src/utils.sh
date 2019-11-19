@@ -6,9 +6,8 @@ exsist() {
 
 getBranchName() {
   result=$(git symbolic-ref --short -q HEAD 2>&1)
-  fatal=$(echo "$result" | grep '^fatal')
 
-  if test -n "$fatal"; then
+  if [[ "$result" == 'fatal'* ]]; then
     echo 
   else
     echo $result
