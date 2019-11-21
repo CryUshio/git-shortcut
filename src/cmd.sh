@@ -44,15 +44,18 @@ submit() {
 }
 
 merge() {
+  targetBranch="$1"
+  recBranch=$(getBranchName)
+
   doMerge() {
-    if [ -z "$1" ]; then
-      git checkout master && git pull && git checkout - && git merge master
+    if [ -z "$targetBranch" ]; then
+      git checkout master && git pull && git checkout -
+      git merge master
     else
-      git merge "$1"
+      git merge "$targetBranch"
     fi
   }
 
-  recBranch=$(getBranchName)
   if [ "$recBranch" == "master" ]; then
     cmd="$2"
     if [ "$cmd" == "-f" ]; then
