@@ -17,6 +17,7 @@ Usage: g <command> <...?>
   br:  git branch <...>
   cl:  git clone <...>
   ck:  git checkout <branchName>
+  rm:  git branch -d <branchName>
   ma:  git checkout master
   + :  git checkout -b <branchName>, use `%t` in branchName will replace with today's date like `20191122`
   - :  git checkout -, 回到上一个分支

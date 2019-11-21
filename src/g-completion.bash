@@ -18,7 +18,7 @@ g_complete() {
   branchs=$(getBranchs)
 
   case $cur in
-  cm | sm | + | br | mg | ck)
+  cm | sm | + | br | mg | ck | rm)
     words=("$cur")
     ;;
   esac
@@ -32,7 +32,7 @@ g_complete() {
       words=("$cur%t")
     fi
     ;;
-  br | mg | ck)
+  br | mg | ck | rm)
     words=($(compgen -W "$branchs" -- $cur))
     ;;
   g)
