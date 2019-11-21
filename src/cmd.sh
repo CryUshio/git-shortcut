@@ -58,12 +58,12 @@ merge() {
   if [ "$recBranch" == "master" ]; then
     cmd="$2"
     if [ "$cmd" == "-f" ]; then
-      echo $(doMerge)
+      doMerge
     else
       echo 'Your branch now is in `master`, add `-f` at the end to enforce.'
     fi
   else
-    echo $(doMerge)
+    doMerge
   fi
 }
 
