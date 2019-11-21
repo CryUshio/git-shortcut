@@ -13,7 +13,13 @@ push() {
 }
 
 pull() {
-  git pull origin $1
+  branchName=$(getBranchName)
+  # 判断空字符串
+  if [ -z "$1" ]; then
+    git pull origin $branchName
+  else
+    git pull origin $1
+  fi
 }
 
 commit() {
