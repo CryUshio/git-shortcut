@@ -69,7 +69,7 @@ sm)
   submit "$sm_1" $*
   ;;
 mg)
-  merge $1
+  merge $1 $2
   ;;
 
 h | help)

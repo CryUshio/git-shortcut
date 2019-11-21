@@ -44,10 +44,24 @@ submit() {
 }
 
 merge() {
-  if [ -z "$1" ]; then
-    git checkout master && git pull && git checkout - && git merge master
+  doMerge() {
+    if [ -z "$1" ]; then
+      git checkout master && git pull && git checkout - && git merge master
+    else
+      git merge "$1"
+    fi
+  }
+
+  recBranch=$(getBranchName)
+  if [ "$recBranch" == "master" ]; then
+    cmd="$2"
+    if [ "$cmd" == "-f" ]; then
+      echo $(doMerge)
+    else
+      echo 'Your branch now is in `master`, add `-f` at the end to enforce.'
+    fi
   else
-    git merge "$1"
+    echo $(doMerge)
   fi
 }
 
@@ -57,13 +71,11 @@ newBranch() {
   branchName=$(replace "$1" "%t" "$dateTime")
   cmd="$2"
 
-  if [ "$recBranch" != "master" ]
-  then
-    if [ "$cmd" == "-f" ]
-    then
+  if [ "$recBranch" != "master" ]; then
+    if [ "$cmd" == "-f" ]; then
       git checkout -b "$branchName"
     else
-      echo 'Your branch now is not in `master`, if you want to create a branch, please add `-f` at the end.'
+      echo 'Your branch now is not in `master`, add `-f` at the end to enforce.'
     fi
   else
     git checkout -b "$branchName"
