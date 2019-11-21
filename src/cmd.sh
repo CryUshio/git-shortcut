@@ -49,8 +49,7 @@ merge() {
 
   doMerge() {
     if [ -z "$targetBranch" ]; then
-      git checkout master && git pull && git checkout -
-      git merge master
+      echo $(git checkout master && git pull && git checkout - && git merge master)
     else
       git merge "$targetBranch"
     fi
