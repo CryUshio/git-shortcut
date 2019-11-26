@@ -1,6 +1,3 @@
-#! /bin/bash
-. "$GIT_SHORTCUT_HOME/src/cmd.sh"
-
 help() {
   cat <<EOF
 Usage: g <command> <...?>
@@ -42,22 +39,22 @@ ck)
   git checkout $1
   ;;
 rm)
-  remove $*
+  cmd_remove $*
   ;;
 ma)
   git checkout master
   ;;
 +)
-  newBranch $*
+  cmd_newBranch $*
   ;;
 -)
   git checkout -
   ;;
 ps)
-  push
+  cmd_push
   ;;
 pl)
-  pull "$1"
+  cmd_pull "$1"
   ;;
 fc)
   git fetch
@@ -65,18 +62,18 @@ fc)
 cm)
   cm_1="$1"
   shift
-  commit "$cm_1" $*
+  cmd_commit "$cm_1" $*
   ;;
 sm)
   sm_1="$1"
   shift
-  submit "$sm_1" $*
+  cmd_submit "$sm_1" $*
   ;;
 mg)
-  merge $1 $2
+  cmd_merge $1 $2
   ;;
 
-h | help)
+h | help | "")
   help
   ;;
 *)

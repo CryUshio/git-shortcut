@@ -1,10 +1,8 @@
-#! /bin/bash
-
-exsist() {
+util_exsist() {
   command -v $1 >/dev/null 2>&1
 }
 
-getBranchName() {
+util_getBranchName() {
   result=$(git symbolic-ref --short -q HEAD 2>&1)
 
   if [[ "$result" == 'fatal'* ]]; then
@@ -14,7 +12,7 @@ getBranchName() {
   fi
 }
 
-replace() {
+util_replace() {
   originStr=$1
   matchVal=$2
   replaceVal=$3
