@@ -75,8 +75,7 @@ merge() {
 
 newBranch() {
   recBranch=$(getBranchName)
-  dateTime=$(date +%Y%m%d)
-  branchName=$(replace "$1" "%t" "$dateTime")
+  branchName="$1"
   cmd="$2"
 
   if [ "$recBranch" != "master" ]; then

@@ -16,6 +16,7 @@ g_complete() {
   local cur=${COMP_WORDS[COMP_CWORD]}
   local cmd=${COMP_WORDS[COMP_CWORD - 1]}
   branchs=$(getBranchs)
+  dateTime=$(date +%Y%m%d)
 
   case $cur in
   cm | sm | + | br | mg | ck | rm)
@@ -26,10 +27,10 @@ g_complete() {
   # ad|ma|-|ps|pl|fh|cm|sm)
   # ;;
   +)
-    if [[ "$cur" == *'%t'* ]]; then
+    if [[ "$cur" == *"$dateTime"* ]]; then
       words=()
     else
-      words=("$cur%t")
+      words=("$cur$dateTime")
     fi
     ;;
   br | mg | ck | rm)
