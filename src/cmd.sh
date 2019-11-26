@@ -87,9 +87,12 @@ cmd_newBranch() {
 }
 
 cmd_remove() {
-  branchName="$1"
-  cmd="$2"
-  if [ "$cmd" == "-D" ]; then
+  branchName=$([ "$2" == '-'* ] && echo "$1" || echo "$1 $2")
+  cmd="${!#}"
+
+  if [ "$cmd" == "-r" ]; then
+    git push origin :$branchName
+  elif [ "$cmd" == "-D" ]; then
     git branch -D $branchName
   else
     git branch -d $branchName

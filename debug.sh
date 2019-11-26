@@ -1,5 +1,12 @@
 #! /bin/bash
 
-result=($(git branch -a 2>&1 | sed "s/^[* ]//g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d"))
+branchName=$([ "$2" == "-D" ] && echo "$1" || echo "$1 $2")
+cmd="${!#}"
+# if [ "$cmd" == "-D" ]; then
+#   git branch -D $branchName
+# else
+#   git branch -d $branchName
+# fi
 
-echo $(printf '%s\n' "${result[@]}" | sort | uniq)
+echo $branchName
+echo cmd = $cmd

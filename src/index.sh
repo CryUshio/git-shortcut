@@ -33,7 +33,7 @@ br)
   git branch $*
   ;;
 cl)
-  git clone $1
+  git clone $*
   ;;
 ck)
   git checkout $1
