@@ -47,7 +47,7 @@ cmd_submit() {
 }
 
 cmd_merge() {
-  targetBranch="$1"
+  targetBranch=$([ -z "$1" ] && echo 'master' || echo "$1")
   recBranch=$(util_getBranchName)
 
   doMerge() {
@@ -57,6 +57,11 @@ cmd_merge() {
       git merge "$targetBranch"
     fi
   }
+
+  if [ "$recBranch" == "$targetBranch" ]; then
+    echo -e "$recBranch -> $targetBranch \nCan not merge itself."
+    return
+  fi
 
   if [ "$recBranch" == "master" ]; then
     cmd="$2"
