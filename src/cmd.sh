@@ -87,7 +87,7 @@ cmd_newBranch() {
 }
 
 cmd_remove() {
-  branchName=$([ "$2" == '-'* ] && echo "$1" || echo "$1 $2")
+  branchName=$([[ "$2" == '-'* ]] && echo "$1" || echo "$1 $2")
   cmd="${!#}"
 
   if [ "$cmd" == "-r" ]; then

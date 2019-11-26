@@ -17,7 +17,9 @@ Usage: g <command> <...?>
   br:  git branch <...>
   cl:  git clone <...>
   ck:  git checkout <branchName>
-  rm:  git branch <-d|-D> <branchName>
+  rm:  git branch -d <branchName>
+       -D, git branch -D <branchName>
+       -r, git push origin :<branchName>
   ma:  git checkout master
   + :  git checkout -b <branchName>, press \`tab\` to add today's date (eg. \`20191122\`)
   - :  git checkout -, 回到上一个分支
