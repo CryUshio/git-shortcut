@@ -1,13 +1,19 @@
 #! /bin/bash
 
-branchName=$([[ "$2" == '-'* ]] && echo "$1" || echo "$1 $2")
-cmd="${!#}"
+exsist() {
+  command -v $1 >/dev/null 2>&1
+}
 
-if [ "$cmd" == "-r" ]; then
-  echo remote, $branchName
-elif [ "$cmd" == "-D" ]; then
-  echo -D, $branchName
+envExsist() {
+  grep 'g-completion' '/Users/sora/.bash_profile' >/dev/null 2>&1
+}
+
+if ! exsist g && ! envExsist; then
+  echo 'not install'
 else
-  echo -d, $branchName
+  echo 'installed'
 fi
 
+if [ -f "/Users/sora/scripts/git-shortcut/g" ] && envExsist; then
+  echo 'install success.'
+fi

@@ -1,6 +1,7 @@
 #! /bin/bash
 
-rm -f ./release/*
+rm -rf ./release
+mkdir ./release
 cp ./src/g-completion.bash ./release
 touch ./release/g
 
