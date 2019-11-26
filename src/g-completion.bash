@@ -1,12 +1,12 @@
 #! /bin/bash
 
 getBranchs() {
-  result=$(git branch 2>&1 | sed "s/*//g")
+  result=$(git branch -a 2>&1 | sed "s/^[* ]//g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
 
   if [[ "$result" == *'fatal'* ]]; then
     echo ''
   else
-    echo "$result"
+    echo "$(printf '%s\n' "${result[@]}" | sort | uniq)"
   fi
 }
 

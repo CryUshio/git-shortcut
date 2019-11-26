@@ -42,7 +42,7 @@ ck)
   git checkout $1
   ;;
 rm)
-  git branch -D $1
+  remove $*
   ;;
 ma)
   git checkout master

@@ -89,3 +89,13 @@ newBranch() {
     git checkout -b "$branchName"
   fi
 }
+
+remove() {
+  branchName="$1"
+  cmd="$2"
+  if [ "$cmd" == "-D" ]; then
+    git branch -D $branchName
+  else
+    git branch -d $branchName
+  fi
+}
