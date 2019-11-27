@@ -2,9 +2,9 @@ cmd_push() {
   branchName=$(util_getBranchName)
   # 判断空字符串
   if [ -z "$branchName" ]; then
-    echo 'branchName is empty.'
+    echo '> push: branchName is empty.'
   else
-    echo -e "-> branch: origin $branchName\n"
+    echo -e "> push: origin $branchName\n"
     git push origin $branchName
   fi
 }
@@ -25,12 +25,12 @@ cmd_commit() {
   else
     # only cmd start with '-'
     if [[ "$1" == '-'* ]]; then
-      echo "-> git commit $*"
+      echo "> commit: git commit $*"
       git commit $*
     else
       comment="$1"
       shift
-      echo "-> git commit -m \"$comment\" $*"
+      echo "> commit: git commit -m \"$comment\" $*"
       git commit -m "$comment" $*
     fi
   fi
@@ -49,9 +49,10 @@ cmd_submit() {
 cmd_merge() {
   targetBranch=$([ -z "$1" ] && echo 'master' || echo "$1")
   recBranch=$(util_getBranchName)
+  echo "> merge: $recBranch -> $targetBranch"
 
   doMerge() {
-    if [ -z "$targetBranch" ]; then
+    if [ "$targetBranch" == "master" ]; then
       git checkout master && git pull && git checkout - && git merge master
     else
       git merge "$targetBranch"
@@ -59,7 +60,7 @@ cmd_merge() {
   }
 
   if [ "$recBranch" == "$targetBranch" ]; then
-    echo -e "$recBranch -> $targetBranch \nCan not merge itself."
+    echo "Can not merge itself."
     return
   fi
 
@@ -84,7 +85,7 @@ cmd_newBranch() {
     if [ "$cmd" == "-f" ]; then
       git checkout -b "$branchName"
     else
-      echo 'Your branch now is not in `master`, add `-f` at the end to enforce.'
+      echo '> checkout -b: Your branch now is not in `master`, add `-f` at the end to enforce.'
     fi
   else
     git checkout -b "$branchName"
