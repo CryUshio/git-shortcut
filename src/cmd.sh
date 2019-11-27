@@ -49,7 +49,7 @@ cmd_submit() {
 cmd_merge() {
   targetBranch=$([ -z "$1" ] && echo 'master' || echo "$1")
   recBranch=$(util_getBranchName)
-  echo "> merge: $recBranch -> $targetBranch"
+  echo "> merge: $targetBranch -> $recBranch"
 
   doMerge() {
     if [ "$targetBranch" == "master" ]; then
