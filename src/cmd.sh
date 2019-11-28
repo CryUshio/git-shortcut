@@ -92,6 +92,18 @@ cmd_newBranch() {
   fi
 }
 
+cmd_rename() {
+  recBranch=$(util_getBranchName)
+  remote=$(git branch -a 2>&1 | grep "remotes/origin/$recBranch")
+  if [ -z remote ]; then
+    echo 'local'
+  else 
+    echo remote
+  fi
+
+  echo $recBranch, $remote
+}
+
 cmd_remove() {
   branchName=$([[ "$2" == '-'* ]] && echo "$1" || echo "$1 $2")
   cmd="${!#}"

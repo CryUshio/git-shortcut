@@ -1,5 +1,5 @@
 #! /bin/bash
 
-branch=$([ -z "$1" ] && echo 'master' || echo "$1")
+branch=remote=git branch -a 2>&1 | grep 'remote/origin'
 
 echo $branch

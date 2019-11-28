@@ -40,6 +40,9 @@ cl)
 ck)
   git checkout $1
   ;;
+rn)
+  cmd_rename $1
+  ;;
 rm)
   cmd_remove $*
   ;;
