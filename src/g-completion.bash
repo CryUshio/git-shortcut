@@ -19,14 +19,14 @@ g_complete() {
   dateTime=$(date +%Y%m%d)
 
   case $cur in
-  cm | sm | + | br | mg | ck | rm)
+  cm | sm | + | br | mg | ck | rm | rn)
     words=("$cur")
     ;;
   esac
   case $cmd in
   # ad|ma|-|ps|pl|fh|cm|sm)
   # ;;
-  +)
+  + | rn)
     if [[ "$cur" == *"$dateTime"* ]]; then
       words=()
     else
