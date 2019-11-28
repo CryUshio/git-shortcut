@@ -95,7 +95,7 @@ cmd_newBranch() {
 cmd_rename() {
   recBranch=$(util_getBranchName)
   remote=$(git branch -a 2>&1 | grep "remotes/origin/$recBranch")
-  if [ -z remote ]; then
+  if [ -z "$remote" ]; then
     echo 'local'
   else 
     echo remote
