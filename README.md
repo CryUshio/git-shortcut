@@ -17,6 +17,7 @@ Usage: g <command> <...?>
   br:  git branch <...>
   cl:  <url>, git clone <...>
   ck:  <branchName>, git checkout <branchName>
+  rn:  <new branchName>, rename recent branch
   rm:  <branchName>, git branch -d <branchName>
        <branchName> -D, git branch -D <branchName>
        <branchName> -r, git push origin :<branchName>
@@ -29,6 +30,7 @@ Usage: g <command> <...?>
   cm:  <comment?|cmd?>, git commit <-m comment?|cmd?>
   sm:  <comment?>, git add . && git commit -m <comment?|'feat: update.'> && git push, 一键推送所有修改
   mg:  <branchName?>, git merge <branchName?>, 拉取并 merge 目标分支, 默认 merge master
+  st:  <cmd?>, git stash <cmd?>
 
   g <h|help>: For help
   g <cmd>: git <cmd>
