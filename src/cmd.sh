@@ -38,7 +38,7 @@ cmd_commit() {
 
 cmd_submit() {
   if [ -z "$1" ]; then
-    git add . && (cmd_commit "feat: update.") && cmd_push
+    git add . && (cmd_commit "feat: update") && cmd_push
   else
     _1="$1"
     shift
