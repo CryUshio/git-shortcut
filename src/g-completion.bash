@@ -1,7 +1,7 @@
 #! /bin/bash
 
 getBranchs() {
-  result=$(git branch -a 2>&1 | sed "s/^[* ]//g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
+  result=$(git branch -a 2>&1 | sed "s/^[* ] //g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
 
   if [[ "$result" == *'fatal'* ]]; then
     echo ''
@@ -10,12 +10,25 @@ getBranchs() {
   fi
 }
 
+getWordList() {
+  cur=$1
+  branchs=$(getBranchs)
+  wordList=`getBranchs | grep "$cur"`
+  words=`getBranchs | grep "^$cur"`
+
+  if [ -z "$words" ]; then
+    echo "$wordList"
+  else
+    echo "$words"
+  fi  
+}
+
 g_complete() {
   COMPREPLY=()
   words=()
   local cur=${COMP_WORDS[COMP_CWORD]}
   local cmd=${COMP_WORDS[COMP_CWORD - 1]}
-  branchs=$(getBranchs)
+  wordList=$(getWordList $cur)
   dateTime=$(date +%Y%m%d)
 
   case $cur in
@@ -34,7 +47,8 @@ g_complete() {
     fi
     ;;
   br | mg | ck | rm)
-    words=($(compgen -W "$branchs" -- $cur))
+    words=($(compgen -W "$wordList"))
+    # words=($(compgen -W "$branchs" -- $cur))
     ;;
   g)
     if [ -z "$cur" ]; then
