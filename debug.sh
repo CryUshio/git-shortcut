@@ -1,23 +1,10 @@
 #! /bin/bash
 
-getBranchs() {
-  result=$(git branch -a 2>&1 | sed "s/^[* ] //g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
-
-  if [[ "$result" == *'fatal'* ]]; then
-    echo ''
-  else
-    echo "$(printf '%s\n' "${result[@]}" | sort | uniq)"
-  fi
+getPath() {
+  echo './test.sh'
 }
 
-cur=$1
-branchs=("$(getBranchs)")
-wordList=$(getBranchs | grep "$cur")
-words=$(getBranchs | grep "^$cur")
-echo "$branchs"
-if [ -z "$words" ]; then
-  echo "wordList: $wordList"
-else
-  echo "words: $words"
-fi
-
+  echo "export PATH=\$PATH:$path
+if [ -f "$path/g-completion.bash" ]; then
+  . $path/g-completion.bash
+fi" >> `getPath`

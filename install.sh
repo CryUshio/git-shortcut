@@ -1,25 +1,35 @@
-#! /bin/sh
+#!/usr/bin/env bash
+
+home=`env | grep ^HOME= | cut -c 6-`
+path=$home/scripts/git-shortcut
+
+getEnvVarPath() {
+  if [ "$(uname)" == "Darwin" ]; then
+    # Mac OS X 操作系统
+    echo "$home/.bash_profile"
+  elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    # GNU/Linux操作系统
+    echo "$home/.bashrc"
+  elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+    # Windows NT操作系统
+    echo ''
+  fi
+}
 
 exsist() {
   command -v $1 >/dev/null 2>&1
 }
 
 envExsist() {
-  grep 'g-completion' '/Users/sora/.bash_profile' >/dev/null 2>&1
+  grep 'g-completion' "$(getEnvVarPath)" >/dev/null 2>&1
 }
 
 writeEnv() {
-  cat <<eot >>~/.bash_profile
-
-export PATH=\$PATH:$path
+  echo "export PATH=\$PATH:$path
 if [ -f "$path/g-completion.bash" ]; then
   . $path/g-completion.bash
-fi
-
-eot
+fi" >> `getEnvVarPath`
 }
-
-path=~/scripts/git-shortcut
 
 # debug
 # rm -rf ~/scripts
@@ -40,9 +50,8 @@ if ! exsist g; then
     writeEnv
   fi
 
-  source ~/.bash_profile
+  source "$(getEnvVarPath)"
 fi
-
 
 if [ -f "$path/g" ] && envExsist; then
   cat <<eof
