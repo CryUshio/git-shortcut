@@ -3,7 +3,7 @@ util_exsist() {
 }
 
 util_getBranchName() {
-  result=$(git symbolic-ref --short -q HEAD 2>&1)
+  local result=$(git symbolic-ref --short -q HEAD 2>&1)
 
   if [[ "$result" == 'fatal'* ]]; then
     echo 
@@ -13,9 +13,9 @@ util_getBranchName() {
 }
 
 util_replace() {
-  originStr=$1
-  matchVal=$2
-  replaceVal=$3
+  local originStr=$1
+  local matchVal=$2
+  local replaceVal=$3
 
   echo $originStr | sed "s/$matchVal/$replaceVal/g"
 }

@@ -1,5 +1,5 @@
 cmd_push() {
-  branchName=$(util_getBranchName)
+  local branchName=$(util_getBranchName)
   # 判断空字符串
   if [ -z "$branchName" ]; then
     echo '> push: branchName is empty.'
@@ -10,7 +10,7 @@ cmd_push() {
 }
 
 cmd_pull() {
-  branchName=$(util_getBranchName)
+  local branchName=$(util_getBranchName)
   # 判断空字符串
   if [ -z "$1" ]; then
     git pull origin $branchName
@@ -40,15 +40,15 @@ cmd_submit() {
   if [ -z "$1" ]; then
     git add . && (cmd_commit "feat: update") && cmd_push
   else
-    _1="$1"
+    local _1="$1"
     shift
     git add . && (cmd_commit "$_1" $*) && cmd_push
   fi
 }
 
 cmd_merge() {
-  targetBranch=$([ -z "$1" ] && echo 'master' || echo "$1")
-  recBranch=$(util_getBranchName)
+  local targetBranch=$([ -z "$1" ] && echo 'master' || echo "$1")
+  local recBranch=$(util_getBranchName)
   echo "> merge: $targetBranch -> $recBranch"
 
   doMerge() {
@@ -65,7 +65,7 @@ cmd_merge() {
   fi
 
   if [ "$recBranch" == "master" ]; then
-    cmd="$2"
+    local cmd="$2"
     if [ "$cmd" == "-f" ]; then
       echo "$(doMerge)"
     else
@@ -77,9 +77,9 @@ cmd_merge() {
 }
 
 cmd_newBranch() {
-  recBranch=$(util_getBranchName)
-  branchName="$1"
-  cmd="$2"
+  local recBranch=$(util_getBranchName)
+  local branchName="$1"
+  local cmd="$2"
 
   if [ "$recBranch" != "master" ]; then
     if [ "$cmd" == "-f" ]; then
@@ -93,8 +93,8 @@ cmd_newBranch() {
 }
 
 cmd_remove() {
-  branchName=$([[ "$2" == '-'* ]] && echo "$1" || echo "$1 $2")
-  cmd="${!#}"
+  local branchName=$([[ "$2" == '-'* ]] && echo "$1" || echo "$1 $2")
+  local cmd="${!#}"
 
   if [ "$cmd" == "-r" ]; then
     git push origin :$branchName
@@ -106,8 +106,8 @@ cmd_remove() {
 }
 
 cmd_rename() {
-  recBranch=$(util_getBranchName)
-  remote=$(git branch -a 2>&1 | grep "remotes/origin/$recBranch")
+  local recBranch=$(util_getBranchName)
+  local remote=$(git branch -a 2>&1 | grep "remotes/origin/$recBranch")
   if [ -z "$remote" ]; then
     # local
     git branch -m "$recBranch" "$1"
