@@ -24,7 +24,7 @@ Usage: g <command> <...?>
   ma:  git checkout master
   + :  <branchName>, git checkout -b <branchName>, press \`tab\` to add today's date (eg. \`20191122\`)
   - :  git checkout -, 回到上一个分支
-  ps:  git push origin [current branch], 推送代码到当前远程分支
+  ps:  <cmd?>, git push origin [current branch] <cmd?>, 推送代码到当前远程分支
   pl:  git pull origin <branchName>?, 从远程分支拉取代码
   fc:  git fetch, 获取远程仓库变动
   cm:  <comment?|cmd?>, git commit <-m comment?|cmd?>
