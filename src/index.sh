@@ -58,7 +58,7 @@ ma)
   git checkout -
   ;;
 ps)
-  cmd_push
+  cmd_push $1
   ;;
 pl)
   cmd_pull "$1"

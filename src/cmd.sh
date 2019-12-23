@@ -1,11 +1,15 @@
 cmd_push() {
   local branchName=$(util_getBranchName)
+  local cmd="$1"
   # 判断空字符串
   if [ -z "$branchName" ]; then
     echo '> push: branchName is empty.'
-  else
+  elif [ -z "$cmd" ]; then
     echo -e "> push: origin $branchName\n"
     git push origin $branchName
+  else
+    echo -e "> push $cmd: origin $branchName\n"
+    git push origin $branchName $cmd
   fi
 }
 
