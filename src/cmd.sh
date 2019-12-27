@@ -156,7 +156,8 @@ cmd_tag() {
   "-s")
     # create and push
     echo -e "> git tag -a $tagName -m \"$comment\"\n> git push origin $tagName\n"
-    git tag -a $tagName -m "$comment" && git push origin $tagName
+    git tag -a $tagName -m "$comment"
+    git push origin $tagName
     ;;
   "-d")
     # delete local tag
