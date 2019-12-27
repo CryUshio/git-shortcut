@@ -1,11 +1,10 @@
 #! /bin/bash
 
-getPath() {
-  echo './test.sh'
+util_isCmd() {
+  if [[ "$1" == "-"* ]]; then
+    echo "$1"
+  fi
 }
 
-  echo "
-export PATH=\$PATH:$path
-if [ -f "$path/g-completion.bash" ]; then
-  . $path/g-completion.bash
-fi" >> `getPath`
+echo $(util_isCmd -a)
+echo $(util_isCmd a)

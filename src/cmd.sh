@@ -122,3 +122,54 @@ cmd_rename() {
     git push origin "$1"
   fi
 }
+
+cmd_tag() {
+  local tagName=$1
+  local comment=""
+  local cmd=""
+
+  if [ -z "$tagName" ]; then
+    # show tag list
+    git tag
+    return
+  fi
+
+  if [ -z "$(util_isCmd $2)" ]; then
+    # comment
+    comment="$2"
+    cmd=$3
+  else
+    cmd=$2
+  fi
+
+  case $cmd in
+  "")
+    # no cmd
+    echo -e "> git tag -a $tagName -m \"$comment\"\n"
+    git tag -a $tagName -m "$comment"
+    ;;
+  "-p")
+    # tag push
+    echo -e "> git push origin $tagName\n"
+    git push origin $tagName
+    ;;
+  "-s")
+    # create and push
+    echo -e "> git tag -a $tagName -m \"$comment\"\ngit push origin $tagName\n"
+    git tag -a $tagName -m "$comment" && git push origin $tagName
+    ;;
+  "-d")
+    # delete local tag
+    echo -e "> git tag -d $tagName\n"
+    git tag -d $tagName
+    ;;
+  "-dr")
+    # delete remote tag
+    echo -e "> git push origin :$tagName\n"
+    git push origin :$tagName
+    ;;
+  *)
+    echo "> g tg: $cmd: no cmd match."
+    ;;
+  esac
+}

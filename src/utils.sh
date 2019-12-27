@@ -19,3 +19,9 @@ util_replace() {
 
   echo $originStr | sed "s/$matchVal/$replaceVal/g"
 }
+
+util_isCmd() {
+  if [[ "$1" == "-"* ]]; then
+    echo "$1"
+  fi
+}
