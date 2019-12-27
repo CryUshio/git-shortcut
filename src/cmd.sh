@@ -155,8 +155,10 @@ cmd_tag() {
     ;;
   "-s")
     # create and push
-    echo -e "> git tag -a $tagName -m \"$comment\"\n> git push origin $tagName\n"
+    echo "> git tag -a $tagName -m \"$comment\""
     git tag -a $tagName -m "$comment"
+
+    echo "> git push origin $tagName"
     git push origin $tagName
     ;;
   "-d")
