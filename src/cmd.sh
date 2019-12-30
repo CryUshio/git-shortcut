@@ -56,11 +56,13 @@ cmd_merge() {
   echo "> merge: $targetBranch -> $recBranch"
 
   doMerge() {
+    git stash
     if [ "$targetBranch" == "master" ]; then
       git checkout master && git pull && git checkout - && git merge master
     else
       git merge "$targetBranch"
     fi
+    git stash pop
   }
 
   if [ "$recBranch" == "$targetBranch" ]; then
@@ -126,18 +128,33 @@ cmd_rename() {
 cmd_tag() {
   local tagName=$1
   local comment=""
+  local commitId=""
   local cmd=""
 
   if [ -z "$tagName" ]; then
     # show tag list
-    git tag
+    git tag -n
     return
   fi
 
   if [ -z "$(util_isCmd $2)" ]; then
-    # comment
+    # $2 is not cmd
     comment="$2"
     cmd=$3
+
+    if [ -n "$(util_isCommitId "$2")" ]; then
+      # $2 is commitId or comment
+      comment=""
+      commitId="$2"
+      cmd=$3
+    fi
+
+    if [ -n "$(util_isCommitId "$3")" ]; then
+      # $3 is commitID, so $2 is comment
+      comment="$2"
+      commitId="$3"
+      cmd=$4
+    fi
   else
     cmd=$2
   fi
@@ -145,17 +162,17 @@ cmd_tag() {
   case $cmd in
   "")
     # no cmd
-    echo -e "> git tag -a $tagName -m \"$comment\"\n"
+    echo "> git tag -a $tagName -m \"$comment\" $commitId"
     git tag -a $tagName -m "$comment"
     ;;
   "-p")
     # tag push
-    echo -e "> git push origin $tagName\n"
+    echo "> git push origin $tagName"
     git push origin $tagName
     ;;
   "-s")
     # create and push
-    echo "> git tag -a $tagName -m \"$comment\""
+    echo "> git tag -a $tagName -m \"$comment\" $commitId"
     git tag -a $tagName -m "$comment"
 
     echo "> git push origin $tagName"
@@ -163,12 +180,12 @@ cmd_tag() {
     ;;
   "-d")
     # delete local tag
-    echo -e "> git tag -d $tagName\n"
+    echo "> git tag -d $tagName"
     git tag -d $tagName
     ;;
   "-dr")
     # delete remote tag
-    echo -e "> git push origin :$tagName\n"
+    echo "> git push origin :$tagName"
     git push origin :$tagName
     ;;
   *)

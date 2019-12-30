@@ -31,12 +31,14 @@ Usage: g <command> <...?>
   sm:  <comment?>, git add . && git commit -m <comment?|'feat: update.'> && git push, 一键推送所有修改
   mg:  <branchName?>, git merge <branchName?>, 拉取并 merge 目标分支, 默认 merge master
   st:  <cmd?>, git stash <cmd?>
-  tg:  [empty], git tag, 显示当前 tag 列表
-       <tag name>, git tag -a, 添加一个 tag
-       <tag name> <comment?>, git tag -a <tag name> <-m<comment>?>, 添加一个带注释的 tag
-       <tag name> -p, git push origin <tag name>, 推送一个 tag
-       <tag name> <comment?> -s, create and submit a tag, 创建并推送一个 tag
-       <tag name> -d, git tag -d <tag name> && git push origin :<tag name>, 删除一个 tag
+  tg:  [empty], git tag -n, 显示当前 tag 列表和注释
+       <tagName>, git tag -a, 添加一个 tag
+       <tagName> <comment>, git tag -a <tagName> <-m<comment>?>, 添加一个带注释的 tag
+       <tagName> <comment?> <commitId>, git tag -a <tagName> <-m<comment>?> <commit id>, 在指定提交对象上添加一个 tag
+       <tagName> -p, git push origin <tagName>, 推送一个 tag
+       <tagName> <comment?> <commitId?> -s, create and submit a tag, 创建并推送一个 tag
+       <tagName> -d, git tag -d <tagName>, 删除一个 tag
+       <tagName> -dr, git push origin :<tagName>, 删除一个远程 tag
 
   g <h|help>: For help
   g <cmd>: git <cmd>

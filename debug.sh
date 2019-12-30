@@ -1,10 +1,11 @@
 #! /bin/bash
 
-util_isCmd() {
-  if [[ "$1" == "-"* ]]; then
+util_isCommitId() {
+  if [ -n "$1" ]; then
     echo "$1"
   fi
 }
 
-echo $(util_isCmd -a)
-echo $(util_isCmd a)
+if [ -n "$(util_isCommitId "$1")" ]; then
+ echo 'true'
+fi
