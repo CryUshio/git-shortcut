@@ -30,6 +30,7 @@ Usage: g <command> <...?>
        <tagName> -d, git tag -d <tagName>, 删除一个 tag
        <tagName> -dr, git push origin :<tagName>, 删除一个远程 tag
 
+  g -v: show current version
   g <h|help>: For help
   g <cmd>: git <cmd>
 EOF
@@ -96,6 +97,9 @@ tg)
 
 h | help | "")
   help
+  ;;
+-v)
+  echo $version
   ;;
 *)
   git $case_key $*

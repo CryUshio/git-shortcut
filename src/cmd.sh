@@ -1,3 +1,8 @@
+cmd_version() {
+  echo $version
+  local latest=
+}
+
 cmd_push() {
   local branchName=$(util_getBranchName)
   local cmd="$1"
