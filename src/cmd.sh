@@ -61,13 +61,11 @@ cmd_merge() {
   echo "> merge: $targetBranch -> $recBranch"
 
   doMerge() {
-    git stash
     if [ "$targetBranch" == "master" ]; then
       git checkout master && git pull && git checkout - && git merge master
     else
       git merge "$targetBranch"
     fi
-    git stash pop
   }
 
   if [ "$recBranch" == "$targetBranch" ]; then
