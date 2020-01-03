@@ -30,11 +30,16 @@ Usage: g <command> <...?>
        <tagName> -d, git tag -d <tagName>, 删除一个 tag
        <tagName> -dr, git push origin :<tagName>, 删除一个远程 tag
 
-  g -v: show current version
+  g -v: Show current version
   g <h|help>: For help
   g <cmd>: git <cmd>
 EOF
 }
+
+if [ ! util_isGitRepo ];then
+  echo 'not a git repository (or any of the parent directories): .git'
+  exit
+fi
 
 case_key=$1
 shift
