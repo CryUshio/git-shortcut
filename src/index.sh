@@ -5,6 +5,7 @@ Usage: g <command> <...?>
 <Commands>
   ad:  git add .
   br:  git branch <...>
+  qr:  <string>, query branches, 模糊查询分支列表
   cl:  <url>, git clone <url>
   ck:  <branchName>, git checkout <branchName>
   rn:  <newBranchName>, rename recent branch, 重命名当前分支
@@ -49,6 +50,9 @@ ad)
   ;;
 br)
   git branch $*
+  ;;
+qr)
+  cmd_query $*
   ;;
 cl)
   git clone $*

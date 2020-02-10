@@ -1,8 +1,3 @@
-cmd_version() {
-  echo $version
-  local latest=
-}
-
 cmd_push() {
   local branchName=$(util_getBranchName)
   local cmd="$1"
@@ -195,4 +190,15 @@ cmd_tag() {
     echo "> g tg: $cmd: no cmd match."
     ;;
   esac
+}
+
+cmd_query() {
+  local queryStr="$1"
+  local result=$(git branch -a 2>&1 | sed "s/^[* ] //g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
+
+  if [[ "$result" == *'fatal'* ]]; then
+    echo "$result"
+  else
+    echo "$(printf '%s\n' "${result[@]}" | grep "$queryStr" | sort | uniq)"
+  fi
 }

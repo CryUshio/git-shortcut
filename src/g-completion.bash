@@ -48,7 +48,6 @@ g_complete() {
     ;;
   br | mg | ck | rm)
     words=($(compgen -W "$wordList"))
-    # words=($(compgen -W "$branchs" -- $cur))
     ;;
   g)
     if [ -z "$cur" ]; then
