@@ -10,7 +10,7 @@ getEnvVarPath() {
   elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # GNU/Linux操作系统
     echo "$home/.bashrc"
-  elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+  else
     # Windows NT操作系统
     echo ''
   fi

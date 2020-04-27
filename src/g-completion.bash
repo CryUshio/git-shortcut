@@ -13,14 +13,14 @@ getBranchs() {
 getWordList() {
   local cur=$1
   local branchs=$(getBranchs)
-  local wordList=`getBranchs | grep "$cur"`
-  local words=`getBranchs | grep "^$cur"`
+  local wordList=$(getBranchs | grep "$cur")
+  local words=$(getBranchs | grep "^$cur")
 
   if [ -z "$words" ]; then
     echo "$wordList"
   else
     echo "$words"
-  fi  
+  fi
 }
 
 g_complete() {
