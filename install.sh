@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin bash
 
 home=`env | grep ^HOME= | cut -c 6-`
 path=$home/scripts/git-shortcut
@@ -17,7 +17,7 @@ getEnvVarPath() {
 }
 
 exsist() {
-  command -v $1 >/dev/null 2>&1
+  echo $(grep -w "$path" "$(getEnvVarPath)")
 }
 
 envExsist() {
@@ -26,9 +26,16 @@ envExsist() {
 
 writeEnv() {
   echo "export PATH=\$PATH:$path
+alias g=g
 if [ -f "$path/g-completion.bash" ]; then
   . $path/g-completion.bash
 fi" >> `getEnvVarPath`
+
+echo "export PATH=\$PATH:$path
+alias g=g
+if [ -f "$path/g-completion.bash" ]; then
+  . $path/g-completion.bash
+fi" >> "$home/.zshrc"
 }
 
 # debug
@@ -45,19 +52,17 @@ chmod +x $path/g
 chmod +x $path/g-completion.bash
 
 # set path
-if ! exsist g; then
-  if ! envExsist; then
-    writeEnv
-  fi
-
-  source "$(getEnvVarPath)"
+if [ -n "$(exsist)" ]; then
+  writeEnv
 fi
+source "$(getEnvVarPath)"
+source "$home/.zshrc"
 
 if [ -f "$path/g" ] && envExsist; then
   cat <<eof
-Install success! Restart your Terminal to take effect.
+Install success! Please Restart your Terminal.
 
-Run \`g h\` to read helps.
+Run \`g\` to read helps.
 
 eof
 else

@@ -1,30 +1,38 @@
-#! /bin/bash
+#!/usr/bin bash
 
-getBranchs() {
-  result=' charmia_20190816_suicai                                         
- charmia_20190823_sendMessage                                    
- charmia_20190829_9303_wxClassRate                               
- charmia_201909_institution                                      
- charmiachen_20190612_npc                                        
- charmiachen_201906_institution_manager                          
- charmiachen_voiceUpload                                         
- charry_20190513_adPay                                           
- charry_20190725_courseTable                                     
- charry_20191119_newCourse                                       
- charry_20191223_abc_pay_qrcode                                  
- charry_20191231_chatRecord                                      
- charry_20200107_dashboard                                       
- charry_20200115_modify_wx                                       
- charry_20200116_campData                                        
- charry_20200206_exportExcel'
+home=`env | grep ^HOME= | cut -c 6-`
+path=$home/scripts/git-shortcut
 
-  result=$(printf '%s' "${result}" | sed "s/^[* ] //g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
-
-  if [[ "$result" == *'fatal'* ]]; then
+getEnvVarPath() {
+  if [ "$SHELL" == "/bin/zsh" ]; then
+    echo "$home/.zshrc"
+  elif [ "$(uname)" == "Darwin" ]; then
+    # Mac OS X 操作系统
+    echo "$home/.bash_profile"
+  elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    # GNU/Linux操作系统
+    echo "$home/.bashrc"
+  elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+    # Windows NT操作系统
     echo ''
-  else
-    echo "$(printf '%s\n' "${result[@]}" | sort | uniq)"
   fi
 }
 
-echo `getBranchs | grep "$1"`
+exsist() {
+  echo $(grep -w "$path" "$(getEnvVarPath)")
+}
+
+envExsist() {
+  grep 'g-completion' "$(getEnvVarPath)" >/dev/null 2>&1
+}
+
+echo $(getEnvVarPath)
+
+if [ -n "$(exsist)" ]; then
+  if ! envExsist; then
+    echo 'write'
+  fi
+
+  alias g='g'
+  echo 'source'
+fi
