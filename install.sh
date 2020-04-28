@@ -6,7 +6,9 @@ home=`env | grep ^HOME= | cut -c 6-`
 path=$home/scripts/git-shortcut
 
 getEnvVarPath() {
-  if [ "$(uname)" == "Darwin" ]; then
+  if [ "$SHELL" == "/bin/zsh" ]; then
+    echo "$home/.zshrc"
+  elif [ "$(uname)" == "Darwin" ]; then
     # Mac OS X 操作系统
     echo "$home/.bash_profile"
   elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -32,12 +34,6 @@ alias g=g
 if [ -f "$path/g-completion.bash" ]; then
   . $path/g-completion.bash
 fi" >> `getEnvVarPath`
-
-echo "export PATH=\$PATH:$path
-alias g=g
-if [ -f "$path/g-completion.bash" ]; then
-  . $path/g-completion.bash
-fi" >> "$home/.zshrc"
 }
 
 # debug
@@ -58,7 +54,6 @@ if [ -z "$(exsist)" ]; then
   writeEnv
 fi
 source "$(getEnvVarPath)"
-source "$home/.zshrc"
 
 if [ -f "$path/g" ] && envExsist; then
   cat <<eof
