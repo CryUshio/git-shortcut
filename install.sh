@@ -1,4 +1,6 @@
-#!/usr/bin bash
+#!/bin/bash
+
+echo $SHELL
 
 home=`env | grep ^HOME= | cut -c 6-`
 path=$home/scripts/git-shortcut
@@ -52,7 +54,7 @@ chmod +x $path/g
 chmod +x $path/g-completion.bash
 
 # set path
-if [ -n "$(exsist)" ]; then
+if [ -z "$(exsist)" ]; then
   writeEnv
 fi
 source "$(getEnvVarPath)"

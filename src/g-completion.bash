@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 getBranchs() {
   local result=$(git branch -a 2>&1 | sed "s/^[* ] //g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
@@ -6,7 +6,7 @@ getBranchs() {
   if [[ "$result" == *'fatal'* ]]; then
     echo ''
   else
-    echo "$(printf '%s\n' "${result[@]}" | sort | uniq)"
+    echo "$(printf '%s' "${result[@]}" | sort | uniq)"
   fi
 }
 
@@ -26,13 +26,14 @@ getWordList() {
 g_complete() {
   COMPREPLY=()
   local words=()
-  local cur=${COMP_WORDS[COMP_CWORD]}
-  local cmd=${COMP_WORDS[COMP_CWORD - 1]}
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  local cmd="${COMP_WORDS[COMP_CWORD - 1]}"
   local wordList=$(getWordList $cur)
   local dateTime=$(date +%Y%m%d)
 
   case $cur in
   cm | sm | + | br | mg | ck | rm | rn)
+    # echo "cur=$cur" >> $HOME/g-complete.log
     words=("$cur")
     ;;
   esac
@@ -59,8 +60,14 @@ g_complete() {
   if [ "${#words[@]}" == "1" ]; then
     COMPREPLY=("${words[@]##*/}")
   else
-    for i in "${!words[@]}"; do
-      COMPREPLY[$i]="$(printf '%*s' "-$COLUMNS" "${words[$i]}")"
+    local i=0
+    while [ $i -lt ${#words[@]} ]; do
+      if [ "$SHELL" == "/bin/zsh" ]; then
+        COMPREPLY[$i]="${words[$i]}"
+      else
+        COMPREPLY[$i]="$(printf '%*s' "-$COLUMNS" "${words[$i]}")"
+      fi
+      let i++
     done
   fi
 
