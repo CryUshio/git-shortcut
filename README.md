@@ -14,7 +14,7 @@ Usage: g <command> [...]
 
 <Commands>
   ad                git add .
-  br <branch>       git branch <branch>
+  br [...]          git branch [...]
   qr <string>       query branches, 模糊查询分支列表
   cl <url>          git clone <url>
   ck <branch>       git checkout <branch>
