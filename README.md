@@ -1,5 +1,5 @@
 ## Description
-自用型 `git` 快捷命令（仅支持 mac os、linux）
+自用型 `git` 快捷命令（仅支持 mac os、linux），提供常用命令或命令组的缩写。
 
 ## Install
 ```
@@ -23,7 +23,7 @@ Usage: g <command> [...]
      <branch> -D    git branch -D <branch>, 强制删除本地分支
      <branch> -r    git push origin :<branch>, 删除远程分支
   ma                git checkout master
-  + <branch>        git checkout -b <branch>, press \`tab\` to add today's date (eg. \`20191122\`), 从当前分支创建新分支
+  + <branch>        git checkout -b <branch>, press `tab` to add today's date (eg. `20191122`), 从当前分支创建新分支
   -                 回到上一个分支
   ps                git push origin {currentBranch}, 推送代码到当前远程分支
   pl [branch]       git pull origin <branch|{currentBranch}>, 从远程分支拉取代码
