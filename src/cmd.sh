@@ -1,11 +1,15 @@
 cmd_push() {
   local branchName=$(util_getBranchName)
+  local cmd="$1"
   # 判断空字符串
   if [ -z "$branchName" ]; then
     echo '> push: branchName is empty.'
-  else
+  elif [ -z "$cmd" ]; then
     echo -e "> push: origin $branchName\n"
     git push origin $branchName
+  else
+    echo -e "> push $cmd: origin $branchName\n"
+    git push origin $branchName $cmd
   fi
 }
 
@@ -116,5 +120,85 @@ cmd_rename() {
     git branch -m "$recBranch" "$1"
     git push origin :"$recBranch"
     git push origin "$1"
+  fi
+}
+
+cmd_tag() {
+  local tagName=$1
+  local comment=""
+  local commitId=""
+  local cmd=""
+
+  if [ -z "$tagName" ]; then
+    # show tag list
+    git tag -n
+    return
+  fi
+
+  if [ -z "$(util_isCmd $2)" ]; then
+    # $2 is not cmd
+    comment="$2"
+    cmd=$3
+
+    if [ -n "$(util_isCommitId "$2")" ]; then
+      # $2 is commitId or comment
+      comment=""
+      commitId="$2"
+      cmd=$3
+    fi
+
+    if [ -n "$(util_isCommitId "$3")" ]; then
+      # $3 is commitID, so $2 is comment
+      comment="$2"
+      commitId="$3"
+      cmd=$4
+    fi
+  else
+    cmd=$2
+  fi
+
+  case $cmd in
+  "")
+    # no cmd
+    echo "> git tag -a $tagName -m \"$comment\" $commitId"
+    git tag -a $tagName -m "$comment"
+    ;;
+  "-p")
+    # tag push
+    echo "> git push origin $tagName"
+    git push origin $tagName
+    ;;
+  "-s")
+    # create and push
+    echo "> git tag -a $tagName -m \"$comment\" $commitId"
+    git tag -a $tagName -m "$comment"
+
+    echo "> git push origin $tagName"
+    git push origin $tagName
+    ;;
+  "-d")
+    # delete local tag
+    echo "> git tag -d $tagName"
+    git tag -d $tagName
+    ;;
+  "-dr")
+    # delete remote tag
+    echo "> git push origin :$tagName"
+    git push origin :$tagName
+    ;;
+  *)
+    echo "> g tg: $cmd: no cmd match."
+    ;;
+  esac
+}
+
+cmd_query() {
+  local queryStr="$1"
+  local result=$(git branch -a 2>&1 | sed "s/^[* ] //g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
+
+  if [[ "$result" == *'fatal'* ]]; then
+    echo "$result"
+  else
+    echo "$(printf '%s\n' "${result[@]}" | grep "$queryStr" | sort | uniq)"
   fi
 }

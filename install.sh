@@ -1,10 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+echo $SHELL
 
 home=`env | grep ^HOME= | cut -c 6-`
 path=$home/scripts/git-shortcut
 
 getEnvVarPath() {
-  if [ "$(uname)" == "Darwin" ]; then
+  if [ "$SHELL" == "/bin/zsh" ]; then
+    echo "$home/.zshrc"
+  elif [ "$(uname)" == "Darwin" ]; then
     # Mac OS X 操作系统
     echo "$home/.bash_profile"
   elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -21,7 +25,7 @@ getEnvVarPath() {
 }
 
 exsist() {
-  command -v $1 >/dev/null 2>&1
+  echo $(grep -w "$path" "$(getEnvVarPath)")
 }
 
 envExsist() {
@@ -50,19 +54,16 @@ chmod +x $path/g
 chmod +x $path/g-completion.bash
 
 # set path
-if ! exsist g; then
-  if ! envExsist; then
-    writeEnv
-  fi
-
-  source "$(getEnvVarPath)"
+if [ -z "$(exsist)" ]; then
+  writeEnv
 fi
+source "$(getEnvVarPath)"
 
 if [ -f "$path/g" ] && envExsist; then
   cat <<eof
-Install success! Restart your Terminal to take effect.
+Install success! Please Restart your Terminal.
 
-Run \`g h\` to read helps.
+Run \`g\` to read helps.
 
 eof
 else
