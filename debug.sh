@@ -1,11 +1,7 @@
 #! /bin/bash
 
-getPath() {
-  echo './test.sh'
-}
+words=(1 2 3)
 
-  echo "
-export PATH=\$PATH:$path
-if [ -f "$path/g-completion.bash" ]; then
-  . $path/g-completion.bash
-fi" >> `getPath`
+for (( i=0; i<${#words[@]}; i++ )) do
+  echo "printf "${words[$i]}
+done

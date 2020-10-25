@@ -31,11 +31,11 @@ g_complete() {
   local wordList=$(getWordList $cur)
   local dateTime=$(date +%Y%m%d)
 
-  case $cur in
-  cm | sm | + | br | mg | ck | rm | rn)
-    words=("$cur")
-    ;;
-  esac
+  # case $cur in
+  # cm | sm | + | br | mg | ck | rm | rn)
+  #   words=("$cur")
+  #   ;;
+  # esac
   case $cmd in
   # ad|ma|-|ps|pl|fh|cm|sm)
   # ;;
@@ -53,16 +53,31 @@ g_complete() {
   g)
     if [ -z "$cur" ]; then
       words=('help')
+    else
+      words=($(compgen -W "ad ma ps pl fh cm sm rn br mg ck rm help" -- $cur))
     fi
     ;;
   esac
 
-  if [ "${#words[@]}" == "1" ]; then
+
+  if [[ "$SHELL" == *"/bin/zsh"* ]]; then
+    for (( i=0; i<${#words[@]}; i++ )) do
+      COMPREPLY[$i]="${words[$i]}"
+    done;
+    return 0
+  fi
+
+  if [[ "${#words[@]}" == "0" ]]; then
+    COMPREPLY=()
+  elif [[ "${#words[@]}" == "1" ]]; then
     COMPREPLY=("${words[@]##*/}")
   else
-    for i in "${!words[@]}"; do
+    for (( i=0; i<${#words[@]}; i++ )) do
       COMPREPLY[$i]="$(printf '%*s' "-$COLUMNS" "${words[$i]}")"
-    done
+    done;
+      # for i in "${!words[@]}"; do
+      #   COMPREPLY[$i]="$(printf '%*s' "-$COLUMNS" "${words[$i]}")"
+      # done
   fi
 
   return 0

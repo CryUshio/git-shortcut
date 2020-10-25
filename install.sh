@@ -9,7 +9,11 @@ getEnvVarPath() {
     echo "$home/.bash_profile"
   elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # GNU/Linux操作系统
-    echo "$home/.bashrc"
+    if [[ "$SHELL" == *"/bin/zsh" ]]; then
+      echo "$home/.zshrc"
+    else
+      echo "$home/.bashrc"
+    fi
   elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
     # Windows NT操作系统
     echo ''
@@ -26,6 +30,7 @@ envExsist() {
 
 writeEnv() {
   echo "export PATH=\$PATH:$path
+alias g=g
 if [ -f "$path/g-completion.bash" ]; then
   . $path/g-completion.bash
 fi" >> `getEnvVarPath`
