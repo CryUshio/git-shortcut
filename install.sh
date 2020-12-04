@@ -1,31 +1,33 @@
 #!/bin/bash
 
-echo $SHELL
+echo "Your shell is: $SHELL"
 
 home=`env | grep ^HOME= | cut -c 6-`
 path=$home/scripts/git-shortcut
 
 getEnvVarPath() {
-  if [ "$SHELL" == "/bin/zsh" ]; then
-    echo "$home/.zshrc"
-  elif [ "$(uname)" == "Darwin" ]; then
+  if [[ "$(uname)" == "Darwin" ]]; then
     # Mac OS X 操作系统
-    echo "$home/.bash_profile"
-  elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    if [[ "$SHELL" == *"bin/zsh" ]]; then
+      echo "$home/.zshrc"
+    else
+      echo "$home/.bash_profile"
+    fi
+  elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
     # GNU/Linux操作系统
-    if [[ "$SHELL" == *"/bin/zsh" ]]; then
+    if [[ "$SHELL" == *"bin/zsh" ]]; then
       echo "$home/.zshrc"
     else
       echo "$home/.bashrc"
     fi
-  elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+  elif [[ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]]; then
     # Windows NT操作系统
     echo ''
   fi
 }
 
 exsist() {
-  echo $(grep -w "$path" "$(getEnvVarPath)")
+  echo $(grep -w "git-shortcut" "$(getEnvVarPath)")
 }
 
 envExsist() {
@@ -33,11 +35,14 @@ envExsist() {
 }
 
 writeEnv() {
-  echo "export PATH=\$PATH:$path
+  echo "# git-shortcut start
+export PATH=\$PATH:$path
 alias g=g
 if [ -f "$path/g-completion.bash" ]; then
   . $path/g-completion.bash
-fi" >> `getEnvVarPath`
+fi
+# git-shortcut end
+" >> `getEnvVarPath`
 }
 
 # debug
@@ -54,23 +59,24 @@ chmod +x $path/g
 chmod +x $path/g-completion.bash
 
 # set path
+echo "Your env file: $(getEnvVarPath)"
+
 if [ -z "$(exsist)" ]; then
+  echo 'Setting env...'
   writeEnv
 fi
-source "$(getEnvVarPath)"
+
+# oh-my-zsh may throw errors in bash environment
+source "$(getEnvVarPath)" >/dev/null 2>&1
 
 if [ -f "$path/g" ] && envExsist; then
   cat <<eof
-Install success! Please Restart your Terminal.
 
-Run \`g\` to read helps.
+Install success! Please Restart your terminal.
+
+Run \`g\` to see help.
 
 eof
 else
-  echo 'Some errors occurred. Please try agnin.'
+  echo 'Some errors occurred. Please check your command line environment.'
 fi
-
-# apply configuration
-
-# debug
-# ls -l $path

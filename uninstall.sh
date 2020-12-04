@@ -1,6 +1,9 @@
 #!/bin/bash
 
+echo "Your shell is: $SHELL"
+
 home=`env | grep ^HOME= | cut -c 6-`
+path=$home/scripts/git-shortcut
 
 getEnvVarPath() {
   if [[ "$(uname)" == "Darwin" ]]; then
@@ -23,5 +26,11 @@ getEnvVarPath() {
   fi
 }
 
-echo "env: $(getEnvVarPath)"
-source "$(getEnvVarPath)" 
+envpath="$(getEnvVarPath)"
+start=$(sed -n '/git-shortcut start/=' $envpath)
+end=$(sed -n '/git-shortcut end/=' $envpath)
+
+sed -i "" "${start},${end}d" $envpath
+rm -rf "$path"
+
+echo "Uninstall succeed."
