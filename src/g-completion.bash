@@ -1,7 +1,7 @@
 #!/bin/bash
 
 getBranchs() {
-  local result=$(git branch -a 2>&1 | sed "s/^[* ] //g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
+  result=$(git branch -a 2>&1 | sed "s/^[* ] //g" | sed "s/remotes\/origin\///g" | sed "/HEAD/d")
 
   if [[ "$result" == *'fatal'* ]]; then
     echo ''
@@ -11,10 +11,10 @@ getBranchs() {
 }
 
 getWordList() {
-  local cur=$1
-  local branchs=$(getBranchs)
-  local wordList=$(getBranchs | grep "$cur")
-  local words=$(getBranchs | grep "^$cur")
+  cur=$1
+  branchs=$(getBranchs)
+  wordList=$(getBranchs | grep "$cur")
+  words=$(getBranchs | grep "^$cur")
 
   if [ -z "$words" ]; then
     echo "$wordList"
@@ -25,11 +25,11 @@ getWordList() {
 
 g_complete() {
   COMPREPLY=()
-  local words=()
-  local cur="${COMP_WORDS[COMP_CWORD]}"
-  local cmd="${COMP_WORDS[COMP_CWORD - 1]}"
-  local wordList=$(getWordList $cur)
-  local dateTime=$(date +%Y%m%d)
+  words=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  cmd="${COMP_WORDS[COMP_CWORD - 1]}"
+  wordList=$(getWordList $cur)
+  dateTime=$(date +%Y%m%d)
 
   case $cmd in
   # ad|ma|-|ps|pl|fh|cm|sm)
@@ -67,7 +67,7 @@ g_complete() {
   elif [[ "${#words[@]}" == "1" ]]; then
     COMPREPLY=("${words[@]##*/}")
   else
-    local i=0
+    i=0
     while [ $i -lt ${#words[@]} ]; do
       if [[ "$SHELL" == *"/bin/zsh" ]]; then
         COMPREPLY[$i]="${words[$i]}"
